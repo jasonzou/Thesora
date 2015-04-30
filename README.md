@@ -24,4 +24,5 @@ to-do list:
 16. Sparql endpoint
 17. RESTful API for external use
 18. Learn from CKAN
+19. VocBench
 
