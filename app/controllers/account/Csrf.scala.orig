@@ -1,0 +1,21 @@
+package controllers.account
+
+import jp.t2v.lab.play2.auth.AuthElement
+import models.Role._
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.mvc.Controller
+
+trait Csrf extends Controller with TokenValidateElement with AuthElement with AuthConfigImpl {
+
+  val form = Form { single("message" -> text) }
+
+  def submitTarget = StackAction(AuthorityKey -> NormalUser) { implicit req =>
+    form.bindFromRequest.fold(
+      _       => throw new Exception,
+      message => Ok(message).as("text/plain")
+    )
+  }
+
+}
+object Csrf extends Csrf

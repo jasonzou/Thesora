@@ -1,0 +1,96 @@
+run
+~ test
+ls
+help
+exit
+~ test
+exit
+~ test
+dist
+exti
+exit
+dist
+exit
+dist
+exit
+run
+dist
+exit
+run
+help
+clean
+clean dist
+clear dist
+clean dist
+exit
+help
+run
+quit
+exit
+run
+~ test
+~ compile
+~ run
+help
+compile
+~ compile
+exit
+run
+~ run
+run 
+~ dist
+exit
+run
+quit
+exit
+run
+~ run
+run
+hehelp clean
+~ clean
+exit
+run
+ui
+exit
+run
+test
+exit
+test
+ShopSpec
+test
+exit
+test
+exit
+test
+testOnly ShopSpec
+exit
+test
+exit
+testOnly
+help
+help testOnly
+testOnly models.ShopSpec
+pwd
+test
+run
+exit
+run
+exit
+run
+exit
+run
+h2-browser
+exit
+h2-browser
+exit
+run
+h2-browser
+exit
+run
+help
+run
+ui
+help run
+run
+help
+run

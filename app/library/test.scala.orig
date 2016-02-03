@@ -1,0 +1,7 @@
+val req = esclient.prepareSearch()
+
+val respFuture = RequestExecutor[SearchResponse].execute(req)
+
+val hits = respFuture.map { response =>
+    response.getHits.getHits
+}

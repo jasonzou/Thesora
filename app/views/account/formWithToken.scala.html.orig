@@ -1,0 +1,14 @@
+@()(implicit account: Account, token: controllers.account.CsrfToken)
+
+@fullTemplate(account)("with Token") {
+
+  @helper.form(action = controllers.account.routes.Crsf.submitTarget()) {
+
+     <h1>With Token</h1>
+     <input type="hidden" name="@account.CsrfToken.FormKey" value="@token.value" />
+     <input type="text" name="message" id="message" /><button type="submit" id="submitbutton">submit</button>
+
+  }
+
+}
+

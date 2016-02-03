@@ -1,0 +1,11 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/messages,/workspace/thesora/target/scala-2.11/classes/messages)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/routes,/workspace/thesora/target/scala-2.11/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/logback.xml,/workspace/thesora/target/scala-2.11/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/application.conf,/workspace/thesora/target/scala-2.11/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/evolutions,/workspace/thesora/target/scala-2.11/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/thesora.sql,/workspace/thesora/target/scala-2.11/classes/thesora.sql)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/messages.en,/workspace/thesora/target/scala-2.11/classes/messages.en)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/evolutions/default,/workspace/thesora/target/scala-2.11/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/evolutions/default/2.sql,/workspace/thesora/target/scala-2.11/classes/evolutions/default/2.sql)[0m
+[0m[[0mdebug[0m] [0m	(/workspace/thesora/conf/evolutions/default/1.sql,/workspace/thesora/target/scala-2.11/classes/evolutions/default/1.sql)[0m

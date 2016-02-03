@@ -1,0 +1,82 @@
+package example
+
+import scala.concurrent.duration.DurationInt
+import akka.actor.{Actor, ActorSystem}
+import akka.testkit.{ImplicitSender, TestActorRef, TestKit}
+import org.elasticsearch.client.Client
+import org.elasticsearch.common.xcontent.XContentFactory
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.{Duration, Interval}
+import org.scalatest._
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.time.{Milliseconds, Span}
+import example.IntervalsQueryActor.{QueryResults, StartQuery}
+import example.EmbeddedNode
+
+class IntervalsQueryActorTest(_system: ActorSystem) extends TestKit(_system) with ImplicitSender
+        with MustMatchers with FlatSpecLike with ScalaFutures with BeforeAndAfterAll {
+
+    def this() = this(ActorSystem("testing"))
+
+    val node: EmbeddedNode = EmbeddedNode()
+
+    val dateFmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")
+    val startDate = dateFmt.parseDateTime("2015-05-03 00:00:00")
+    val duration = new Duration(1.second.toMillis)
+
+    val expectedIntervals = List(
+        new Interval(dateFmt.parseDateTime("2015-05-03 00:00:00"), duration),
+        new Interval(dateFmt.parseDateTime("2015-05-03 00:00:01"), duration),
+        new Interval(dateFmt.parseDateTime("2015-05-03 00:00:02"), duration),
+        new Interval(dateFmt.parseDateTime("2015-05-03 00:00:03"), duration)
+    )
+
+    override def beforeAll {
+        node.start()
+        node.createAndWaitForIndex("test")
+        indexDocuments(node.client())
+    }
+
+    override def afterAll {
+        TestKit.shutdownActorSystem(system)
+        node.shutdown(true)
+    }
+
+    def indexDocuments(client: Client) = {
+        indexTimestamp(client, "2015-05-03 00:00:00")
+        indexTimestamp(client, "2015-05-03 00:00:01")
+        indexTimestamp(client, "2015-05-03 00:00:02")
+        indexTimestamp(client, "2015-05-03 00:00:03")
+        indexTimestamp(client, "2015-05-03 00:00:04")
+    }
+
+    def indexTimestamp(client: Client, ts: String) = {
+        client.prepareIndex("test", "test")
+            .setRefresh(true)
+            .setSource(XContentFactory.jsonBuilder().startObject()
+            .field("timestamp", dateFmt.parseDateTime(ts).toString())
+            .endObject())
+            .execute().actionGet()
+    }
+
+    "An IntervalsQueryActor" should "be able to query for intervals" in {
+
+        val client = node.client()
+        val actorRef = TestActorRef(new IntervalsQueryActor(client, "test", List("test"), startDate, duration))
+
+        val intervalsFuture = actorRef.underlyingActor.queryIntervals()
+        whenReady(intervalsFuture, timeout(Span(300, Milliseconds))) { intervals =>
+            intervals.size mustBe expectedIntervals.size
+            intervals mustEqual expectedIntervals
+        }
+    }
+
+    it should "return a QueryResults message when receives a StartQuery" in {
+
+        val client = node.client()
+        val actorRef = system.actorOf(IntervalsQueryActor.props(client, "test", List("test"), startDate, duration))
+
+        actorRef ! StartQuery()
+        expectMsg(500 milliseconds, QueryResults(expectedIntervals))
+    }
+}

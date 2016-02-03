@@ -1,0 +1,9 @@
+case class Item(id:Long, name:String, price:Double)
+
+trait Shop{
+  def list(): Seq[Item]
+  def create(name:String, price:Double): Option[Item]
+  def get(id:Long): Option[Item]
+  def update(id:Long, name:String, price:Double): Option[Item]
+  def delete(id:Long): Boolean
+}

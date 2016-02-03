@@ -1,0 +1,39 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+GET     /cat                        controllers.Application.catindex
+
+POST    /insert			    controllers.Application.insert
+
+# Csrf
+#GET     /account                    controllers.account.Sessions.login
+#POST    /account/login              controllers.account.Sessions.authenticate
+#GET     /account/logout             controllers.account.Sessions.logout
+
+# Tasks
+GET	/tasks			controllers.Application.tasks()
+POST 	/tasks			controllers.Application.newTask()
+POST	/tasks/:id/delete	controllers.Application.deleteTask(id:Long)
+
+# Items
+GET 	/items			controllers.Items.list(page: Int ?= 1)
+POST	/items			controllers.Items.create
+GET	/items/:id  		controllers.Items.details(id:Long)
+PUT	/items/:id		controllers.Items.update(id:Long)
+DELETE	/items/:id		controllers.Items.delete(id:Long)
+
+# Vocabulary
+GET	/vocs			controllers.Application.vocs()
+POST	/vocs			controllers.Application.newVoc()
+
+# 
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file           controllers.Assets.versioned(path="/public", file:Asset)
+GET     /assets/*file           controllers.Assets.versioned(path="/public", file:Asset)
+
+GET     /webjars/*file          controllers.WebJarAssets.at(file)
+

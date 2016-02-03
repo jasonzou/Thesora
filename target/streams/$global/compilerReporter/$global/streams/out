@@ -1,0 +1,4 @@
+[0m[[31merror[0m] [0m/workspace/thesora/app/controllers/Application.scala:47: value catindex is not a member of controllers.ReverseApplication[0m
+[0m[[31merror[0m] [0m    dao.insert(cat).map(_ => Redirect(routes.Application.catindex))[0m
+[0m[[31merror[0m] [0m                                                         ^[0m
+[0m[[31merror[0m] [0mone error found[0m
